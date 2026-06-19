@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muhammad Alfian Pambudi — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="transition-colors duration-500">
+
+  <!-- ══ SAKURA CANVAS ════════════════════════════════════════ -->
+  <canvas id="sakuraCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- ══ NAVBAR ════════════════════════════════════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Logo / Nama -->
+      <a href="#hero" class="nav-logo flex items-center gap-3 group">
+        <span class="logo-kanji">田</span>
+        <div>
+          <div class="logo-name">MUHAMMAD ALFIAN PAMBUDI</div>
+          <div class="logo-title">ムハンマド・アルフィアン・パンブディ</div>
+        </div>
+      </a>
+
+      <!-- Nav Links -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#tentang" class="nav-link">Tentang</a>
+        <a href="#keahlian" class="nav-link">Keahlian</a>
+        <a href="#portfolio" class="nav-link">Portfolio</a>
+        <a href="#pengalaman" class="nav-link">Pengalaman</a>
+        <a href="#kontak" class="nav-link">Kontak</a>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center gap-3">
+        <!-- Music Player -->
+        <button id="musicBtn" class="control-btn" title="Putar Musik">
+          <svg id="musicIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13s1.12-2 2.5-2 2.5.895 2.5 2zm9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2z"/>
+            <path fill-rule="evenodd" d="M14 11V2h1v9h-1zM6 3v10H5V3h1z"/>
+            <path d="M5 2.905a1 1 0 0 1 .9-.995l8-.8a1 1 0 0 1 1.1.995V3L5 4V2.905z"/>
+          </svg>
+          <span id="musicStatus" class="text-xs hidden md:inline">Musik</span>
+        </button>
+
+        <!-- Volume -->
+        <input id="volumeSlider" type="range" min="0" max="1" step="0.1" value="0.3" class="volume-slider hidden md:block" />
+
+        <!-- Dark/Light Mode -->
+        <button id="themeBtn" class="control-btn theme-toggle" title="Ganti Tema">
+          <span id="themeIcon">🌙</span>
+        </button>
+
+        <!-- Hamburger -->
+        <button id="menuBtn" class="control-btn md:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu hidden md:hidden">
+      <div class="flex flex-col gap-4 px-6 py-4">
+        <a href="#tentang" class="nav-link mobile-nav-link">Tentang</a>
+        <a href="#keahlian" class="nav-link mobile-nav-link">Keahlian</a>
+        <a href="#portfolio" class="nav-link mobile-nav-link">Portfolio</a>
+        <a href="#pengalaman" class="nav-link mobile-nav-link">Pengalaman</a>
+        <a href="#kontak" class="nav-link mobile-nav-link">Kontak</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ MUSIC PLAYER (Hidden Audio) ══════════════════════════ -->
+  <audio id="bgMusic" loop preload="auto">
+  <source src="public/music/Moshi Moshi Long.mp3" type="audio/mpeg">
+</audio>
+
+  <!-- ══ HERO ══════════════════════════════════════════════════ -->
+  <section id="hero" class="hero-section min-h-screen flex items-center justify-center relative overflow-hidden">
+    <!-- Japanese pattern overlay -->
+    <div class="pattern-overlay"></div>
+
+    <!-- Vertical Japanese text decoration -->
+    <div class="japanese-deco left-8 top-1/4 hidden lg:flex">
+      <span>デザイナー</span>
+      <span>開発者</span>
+      <span>クリエイター</span>
+    </div>
+    <div class="japanese-deco right-8 top-1/3 hidden lg:flex">
+      <span>夢を形に</span>
+    </div>
+
+    <div class="hero-content text-center z-10 px-6 max-w-4xl mx-auto">
+      <!-- Seasonal decoration -->
+      <div class="hero-season mb-6">
+        <span class="season-text">春 ·</span>
+        <div class="season-line"></div>
+      </div>
+
+      <!-- Main Name -->
+      <div class="hero-name-block mb-4">
+        <h1 class="hero-kanji">アルフィアン</h1>
+        <h2 class="hero-romaji">MUHAMMAD ALFIAN PAMBUDI</h2>
+      </div>
+
+      <div class="hero-divider">
+        <span class="divider-char">⛩</span>
+      </div>
+
+      <p class="hero-tagline mt-4">
+        UI/UX Designer & Frontend Developer
+      </p>
+      <p class="hero-sub mt-3">
+        Menciptakan pengalaman digital yang bermakna dengan keindahan minimalis.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-wrap gap-4 justify-center mt-10">
+        <a href="#portfolio" class="btn-primary">
+          <span>Lihat Portfolio</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+          </svg>
+        </a>
+        <a href="#kontak" class="btn-secondary">Hubungi Saya</a>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="hero-stats mt-16 grid grid-cols-3 gap-8 max-w-md mx-auto">
+        <div class="stat-item">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">Tahun</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">40+</div>
+          <div class="stat-label">Proyek</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">20+</div>
+          <div class="stat-label">Klien</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <span></span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ══ TENTANG ════════════════════════════════════════════════ -->
+  <section id="tentang" class="section-wrapper py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="section-header">
+        <span class="section-label">自己紹介</span>
+        <h2 class="section-title">Tentang Saya</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-16 items-center mt-12">
+        <!-- Photo area -->
+        <div class="about-photo-wrap">
+          <div class="about-photo-frame">
+            <div class="photo-placeholder">
+              <!-- Ganti dengan tag <img> dan src foto Anda -->
+               <img
+                src="WhatsApp Image 2026-06-18 at 21.09.30.jpeg"
+                alt="Profile"
+                class="w-full h-full object-cover rounded-lg">
+            </div>
+            <div class="photo-border-deco"></div>
+          </div>
+          <div class="about-tags mt-6 flex flex-wrap gap-2">
+            <span class="tag">🎨 UI/UX Design</span>
+            <span class="tag">💻 Frontend Dev</span>
+            <span class="tag">📱 Mobile App</span>
+            <span class="tag">🌸 Minimalist</span>
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="about-text">
+          <p class="about-quote">"形は心から生まれる"</p>
+          <p class="about-quote-trans">Bentuk lahir dari dalam hati.</p>
+
+          <p class="about-body mt-6">
+            Halo! Saya <strong>MUHAMMAD ALFIAN PAMBUDI</strong>, seorang UI/UX Designer dan Frontend Developer dengan semangat untuk menciptakan antarmuka yang tidak hanya indah secara visual, tetapi juga intuitif dan bermakna bagi pengguna.
+          </p>
+          <p class="about-body mt-4">
+            Terinspirasi dari estetika Jepang — <em>wabi-sabi</em>, <em>ma</em> (ruang kosong), dan <em>omotenashi</em> — saya percaya bahwa desain terbaik adalah yang tidak terasa seperti desain sama sekali.
+          </p>
+
+          <div class="about-details mt-8 grid grid-cols-2 gap-4">
+            <div class="detail-item">
+              <span class="detail-label">Lokasi</span>
+              <span class="detail-value">Jakarta, Indonesia</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Tersedia</span>
+              <span class="detail-value available">● Buka Proyek</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Email</span>
+              <span class="detail-value">muhalfianpambudi@gmail.com</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Bahasa</span>
+              <span class="detail-value">ID · EN · JP</span>
+            </div>
+          </div>
+
+          <a href="#" download class="btn-download mt-8 inline-flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+            </svg>
+            Unduh CV (PDF)
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ KEAHLIAN ═══════════════════════════════════════════════ -->
+  <section id="keahlian" class="section-wrapper py-24 section-alt">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="section-header">
+        <span class="section-label">スキル</span>
+        <h2 class="section-title">Keahlian</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 mt-12">
+        <!-- Skill bars -->
+        <div class="skills-col">
+          <h3 class="skills-cat-title mb-6">Design & Creative</h3>
+          <div class="space-y-5">
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Figma / Adobe XD</span>
+                <span class="skill-pct">95%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" data-w="95"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Adobe Illustrator</span>
+                <span class="skill-pct">85%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" data-w="85"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Prototyping & UX Research</span>
+                <span class="skill-pct">90%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" data-w="90"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Motion Design</span>
+                <span class="skill-pct">75%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" data-w="75"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-col">
+          <h3 class="skills-cat-title mb-6">Development</h3>
+          <div class="space-y-5">
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">HTML / CSS / Tailwind</span>
+                <span class="skill-pct">98%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" data-w="98"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">JavaScript / TypeScript</span>
+                <span class="skill-pct">88%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" data-w="88"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">React / Vue.js</span>
+                <span class="skill-pct">82%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" data-w="82"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Node.js / Express</span>
+                <span class="skill-pct">78%</span>
+              </div>
+              <div class="skill-bar"><div class="skill-fill" data-w="78"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tool badges -->
+      <div class="tools-section mt-16">
+        <h3 class="skills-cat-title mb-6 text-center">Tools & Platform</h3>
+        <div class="tools-grid">
+          <div class="tool-badge">VS Code</div>
+          <div class="tool-badge">Git / GitHub</div>
+          <div class="tool-badge">Docker</div>
+          <div class="tool-badge">Notion</div>
+          <div class="tool-badge">Jira</div>
+          <div class="tool-badge">Vercel</div>
+          <div class="tool-badge">Firebase</div>
+          <div class="tool-badge">Figma</div>
+          <div class="tool-badge">Slack</div>
+          <div class="tool-badge">Photoshop</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PORTFOLIO ══════════════════════════════════════════════ -->
+  <section id="portfolio" class="section-wrapper py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="section-header">
+        <span class="section-label">ポートフォリオ</span>
+        <h2 class="section-title">Portfolio</h2>
+      </div>
+
+      <!-- Filter -->
+      <div class="portfolio-filter mt-8 flex flex-wrap gap-3 justify-center">
+        <button class="filter-btn active" data-filter="all">Semua</button>
+        <button class="filter-btn" data-filter="design">UI/UX Design</button>
+        <button class="filter-btn" data-filter="web">Web Dev</button>
+        <button class="filter-btn" data-filter="mobile">Mobile App</button>
+      </div>
+
+      <!-- Cards -->
+      <div class="portfolio-grid mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="portfolio-card reveal" data-category="design">
+          <div class="card-thumb design-thumb">
+            <span class="thumb-icon">🎨</span>
+          </div>
+          <div class="card-body">
+            <span class="card-cat">UI/UX Design</span>
+            <h3 class="card-title">Sakura Banking App</h3>
+            <p class="card-desc">Redesain aplikasi perbankan dengan pendekatan minimalis Jepang dan UX riset mendalam.</p>
+            <div class="card-tags">
+              <span>Figma</span><span>UX Research</span><span>Prototyping</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-link">Lihat Detail →</a>
+          </div>
+        </div>
+
+        <div class="portfolio-card reveal" data-category="web">
+          <div class="card-thumb web-thumb">
+            <span class="thumb-icon">💻</span>
+          </div>
+          <div class="card-body">
+            <span class="card-cat">Web Development</span>
+            <h3 class="card-title">E-Commerce Noren</h3>
+            <p class="card-desc">Platform e-commerce produk kerajinan Jepang dengan animasi interaktif dan performa tinggi.</p>
+            <div class="card-tags">
+              <span>React</span><span>Node.js</span><span>MongoDB</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-link">Lihat Detail →</a>
+          </div>
+        </div>
+
+        <div class="portfolio-card reveal" data-category="mobile">
+          <div class="card-thumb mobile-thumb">
+            <span class="thumb-icon">📱</span>
+          </div>
+          <div class="card-body">
+            <span class="card-cat">Mobile App</span>
+            <h3 class="card-title">Matcha Tracker</h3>
+            <p class="card-desc">Aplikasi pelacak kebiasaan harian terinspirasi ritual minum teh Jepang.</p>
+            <div class="card-tags">
+              <span>React Native</span><span>Firebase</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-link">Lihat Detail →</a>
+          </div>
+        </div>
+
+        <div class="portfolio-card reveal" data-category="design">
+          <div class="card-thumb design-thumb">
+            <span class="thumb-icon">🌸</span>
+          </div>
+          <div class="card-body">
+            <span class="card-cat">UI/UX Design</span>
+            <h3 class="card-title">Zen Dashboard</h3>
+            <p class="card-desc">Dashboard analitik dengan konsep "ma" — keindahan dalam ruang dan simplisitas.</p>
+            <div class="card-tags">
+              <span>Figma</span><span>Data Viz</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-link">Lihat Detail →</a>
+          </div>
+        </div>
+
+        <div class="portfolio-card reveal" data-category="web">
+          <div class="card-thumb web-thumb">
+            <span class="thumb-icon">⛩</span>
+          </div>
+          <div class="card-body">
+            <span class="card-cat">Web Development</span>
+            <h3 class="card-title">Torii Portfolio CMS</h3>
+            <p class="card-desc">CMS khusus untuk seniman dan desainer dengan antarmuka yang indah dan intuitif.</p>
+            <div class="card-tags">
+              <span>Next.js</span><span>Sanity</span><span>Tailwind</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-link">Lihat Detail →</a>
+          </div>
+        </div>
+
+        <div class="portfolio-card reveal" data-category="mobile">
+          <div class="card-thumb mobile-thumb">
+            <span class="thumb-icon">🏮</span>
+          </div>
+          <div class="card-body">
+            <span class="card-cat">Mobile App</span>
+            <h3 class="card-title">Hanami Guide</h3>
+            <p class="card-desc">Panduan wisata festival hanami dengan AR preview lokasi dan jadwal real-time.</p>
+            <div class="card-tags">
+              <span>Flutter</span><span>AR Core</span><span>Maps API</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-link">Lihat Detail →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PENGALAMAN ════════════════════════════════════════════ -->
+  <section id="pengalaman" class="section-wrapper py-24 section-alt">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="section-header">
+        <span class="section-label">経験</span>
+        <h2 class="section-title">Pengalaman</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 mt-12">
+        <!-- Timeline Kerja -->
+        <div>
+          <h3 class="skills-cat-title mb-8">Riwayat Kerja</h3>
+          <div class="timeline">
+
+            <div class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-period">2023 — 2026</div>
+                <h4 class="timeline-role">Operator Machine</h4>
+                <div class="timeline-company">SKS · Jakarta</div>
+                <p class="timeline-desc">Memimpin tim untuk produk package dengan hasil 100.000+ meter per hari. Menerapkan kerja system berbasis komponen yang mengurangi waktu 40%.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-period">2021 — 2023</div>
+                <h4 class="timeline-role">Frontend Developer</h4>
+                <div class="timeline-company">Noren Digital · Bandung</div>
+                <p class="timeline-desc">Membangun antarmuka web yang performatif menggunakan React dan Vue.js. Berkolaborasi erat dengan tim desain untuk menghadirkan pixel-perfect implementation.</p>
+              </div>
+            </div>
+
+          
+
+          </div>
+        </div>
+
+        <!-- Timeline Pendidikan -->
+        <div>
+          <h3 class="skills-cat-title mb-8">Pendidikan & Sertifikasi</h3>
+          <div class="timeline">
+
+            <div class="timeline-item reveal">
+              <div class="timeline-dot edu-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-period">2017 — 2020</div>
+                <h4 class="timeline-role">Sekolah Desain Komunikasi Visual</h4>
+                <div class="timeline-company">SMPC · Tangerang</div>
+                <p class="timeline-desc">Lulus dengan predikat tinggi. Fokus pada interactive design dan human-computer interaction.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item reveal">
+              <div class="timeline-dot edu-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-period">2020 — 2023</div>
+                <h4 class="timeline-role">Sekolah Menengah Atas</h4>
+                <div class="timeline-company">SMAB · Tangerang</div>
+                <p class="timeline-desc">Sertifikasi resmi sekolah dalam bidang pengetahuan, user research, dan prototyping.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item reveal">
+              <div class="timeline-dot edu-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-period">2023 — Sekarang</div>
+                <h4 class="timeline-role">Mahasiswa Ilmu Komputer</h4>
+                <div class="timeline-company">Pamulang University · City of Serang</div>
+                <p class="timeline-desc">Pemahaman mendalam tentang komputer dan cloud untuk kebutuhan deployment aplikasi.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ KONTAK ════════════════════════════════════════════════ -->
+  <section id="kontak" class="section-wrapper py-24">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="section-header">
+        <span class="section-label">お問い合わせ</span>
+        <h2 class="section-title">Hubungi Saya</h2>
+      </div>
+
+      <p class="contact-intro mt-4 text-center max-w-lg mx-auto">
+        Punya proyek menarik? Mari berkolaborasi. Saya selalu terbuka untuk diskusi dan peluang baru.
+      </p>
+
+      <!-- Contact cards -->
+      <div class="contact-methods grid sm:grid-cols-3 gap-4 mt-10">
+        <a href="mailto:yuki@example.com" class="contact-card">
+          <span class="contact-icon">✉️</span>
+          <span class="contact-label">Email</span>
+          <span class="contact-val">muhalfianpambudi@gmail.com</span>
+        </a>
+        <button id="waQuickBtn" class="contact-card">
+          <span class="contact-icon">💬</span>
+          <span class="contact-label">WhatsApp</span>
+          <span class="contact-val">+62 878-4479-7629</span>
+        </button>
+        <a href="https://linkedin.com" target="_blank" class="contact-card">
+          <span class="contact-icon">💼</span>
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-val">linkedin.com/in/alfianpambudi</span>
+        </a>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-wrap mt-12">
+        <div class="form-tabs">
+          <button class="form-tab active" data-tab="email">Kirim Email</button>
+          <button class="form-tab" data-tab="whatsapp">Pesan WhatsApp</button>
+        </div>
+
+        <!-- Email Form -->
+        <div id="emailForm" class="form-panel active">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Nama Lengkap</label>
+              <input type="text" id="emailName" class="form-input" placeholder="Nama kamu" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Alamat Email</label>
+              <input type="email" id="emailAddress" class="form-input" placeholder="email@example.com" />
+            </div>
+            <div class="form-group col-span-2">
+              <label class="form-label">Subjek</label>
+              <input type="text" id="emailSubject" class="form-input" placeholder="Perihal pesan" />
+            </div>
+            <div class="form-group col-span-2">
+              <label class="form-label">Pesan</label>
+              <textarea id="emailMessage" class="form-textarea" rows="5" placeholder="Tuliskan pesanmu di sini..."></textarea>
+            </div>
+          </div>
+          <button id="sendEmailBtn" class="btn-send mt-4">
+            <span id="emailBtnText">Kirim Email</span>
+            <div id="emailSpinner" class="spinner hidden"></div>
+          </button>
+          <div id="emailFeedback" class="form-feedback hidden"></div>
+        </div>
+
+        <!-- WhatsApp Form -->
+        <div id="whatsappForm" class="form-panel hidden">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Nama Kamu</label>
+              <input type="text" id="waName" class="form-input" placeholder="Nama kamu" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Topik</label>
+              <select id="waTopic" class="form-input">
+                <option value="">Pilih topik...</option>
+                <option>Proyek Baru</option>
+                <option>Kolaborasi</option>
+                <option>Konsultasi</option>
+                <option>Lainnya</option>
+              </select>
+            </div>
+            <div class="form-group col-span-2">
+              <label class="form-label">Pesan</label>
+              <textarea id="waMessage" class="form-textarea" rows="4" placeholder="Pesan singkat untukku..."></textarea>
+            </div>
+          </div>
+          <button id="sendWaBtn" class="btn-send btn-wa mt-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+            </svg>
+            Buka WhatsApp
+          </button>
+          <div id="waFeedback" class="form-feedback hidden"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ════════════════════════════════════════════════ -->
+  <footer class="footer py-12">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <div class="footer-logo mb-4">
+        <span class="logo-kanji-sm">田中 雪</span>
+      </div>
+      <p class="footer-quote">「一期一会」— Setiap pertemuan adalah sebuah keajaiban.</p>
+      <div class="footer-links mt-6 flex justify-center gap-6">
+        <a href="#hero">Beranda</a>
+        <a href="#tentang">Tentang</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#kontak">Kontak</a>
+      </div>
+      <div class="footer-divider my-6"></div>
+      <p class="footer-copy">
+        © 2026 MUHAMMAD ALFIAN PAMBUDI · Dibuat dengan 🌸 di Jakarta
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
